@@ -1,0 +1,43 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+<script type="text/babel">
+
+	const state = { eCount: 0, username: '' }
+
+	const App = () => {
+		function handleClick(){
+			setState({eCount: state.eCount + 1})
+		}
+
+		function handleUsernameChange(e){
+			setState({username: e.target.value })
+		}
+
+		return (
+			<div className="app-container">
+				<p>There have been {state.eCount} events.</p>
+				<p>
+					<button onClick={handleClick}>Click Me</button>
+				</p>
+				<p>Username : {state.username}</p>
+				<p><input onChange={handleUsernameChange}/></p>
+			< /div>
+		)
+	}
+
+	function setState( newState ){
+		Object.assign( state, newState )
+		renderApp();
+	}
+
+	function renderApp(){
+		ReactDOM.render(<App />, document.getElementById('root'))
+	}
+
+	renderApp();
+</script>
+</body>
