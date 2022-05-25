@@ -8,8 +8,8 @@
 
 
 	const App = () => {
-		const [ firstName, setFistName ] = React.useState(window.localStorage.getItem('firstName') || '');
-		const [ lastName, setLastNName ] = React.useState(window.localStorage.getItem('lastName') || '');
+		const [firstName, setFistName] = React.useState(() => window.localStorage.getItem('firstName') || '')
+		const [lastName, setLastNName] = React.useState(() => window.localStorage.getItem('lastName') || '')
 
 		React.useEffect( () => {
 			window.localStorage.setItem( 'firstName', firstName )

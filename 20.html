@@ -1,0 +1,50 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+<script type="text/babel">
+
+	const App = () => {
+		const [firstName, setFistName] = React.useState('')
+		const [lastName, setLastNName] = React.useState('')
+		const isLowerCaseFirstName = firstName === firstName.toLowerCase();
+		const isLowerCaseLastName = lastName === lastName.toLowerCase();
+		const error = isLowerCaseFirstName ? ( isLowerCaseLastName ? null : 'Lastname must be lower case.' ) : 'Firstname must be lower case'
+
+		function handleSubmit(e){
+			e.preventDefault();
+		}
+
+		function handleChangeFirstName(e){
+			setFistName(e.target.value.toLowerCase())
+		}
+
+		function handleChangeLastName(e){
+			setLastNName(e.target.value.toLowerCase())
+		}
+
+		return (
+			<div className="app-container">
+				<form onSubmit={handleSubmit}>
+					<div>
+					<label htmlFor="first-name">First Name :</label>
+					<br/>
+					<input id="first-name" onChange={handleChangeFirstName} />
+					<br/>
+					<label htmlFor="last-name">Last Name :</label>
+					<br/>
+					<input id="last-name" onChange={handleChangeLastName} />
+					<br/>
+					</div>
+					<div style={{color:'red'}} >{error}</div>
+					<button disabled={Boolean(error)} typeof="submit">Submit</button>
+				</form>
+			< /div>
+		)
+	}
+
+	ReactDOM.render(<App />, document.getElementById('root'))
+</script>
+</body>

@@ -1,0 +1,47 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+<script type="text/babel">
+
+	const allItems = [
+		{ id:'a', value: 'apple'},
+		{ id:'b', value: 'boat'},
+		{ id:'c', value: 'cat'},
+		{ id:'d', value: 'dog'},
+	]
+
+	const App = () => {
+		const [items, setIItems] = React.useState(allItems)
+
+		function addItem(){
+			setIItems( [ ...items, allItems.find( i => !items.includes(i) ) ] )
+		}
+
+		function removeItem(item){
+			setIItems(items.filter(i=> i !== item))
+		}
+
+		return (
+			<div className="app-container">
+				<button disabled={items.length >= allItems.length} onClick={addItem}>
+					Add Item
+				</button>
+				<ul>
+					{items.map(item => (
+						<li key={item.id}>
+							<label htmlFor={`${item.value}-input`}>{item.value}</label>
+							<input id={`${item.value}-input`} defaultValue={item.value} />
+							<button onClick={()=>removeItem(item)}>Remove</button>
+						</li>
+					))}
+				</ul>
+			< /div>
+		)
+	}
+
+	ReactDOM.render(<App/>, document.getElementById('root'))
+</script>
+</body>

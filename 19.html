@@ -1,0 +1,44 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+<script type="text/babel">
+
+	const App = () => {
+		const firstNameRef = React.useRef();
+		const lastNameRef = React.useRef();
+
+		function handleSubmit(e){
+			e.preventDefault();
+			// const firstName = e.target.elements['first-name'].value
+			// const lastName = e.target.elements['last-name'].value
+
+			const firstName = firstNameRef.current.value
+			const lastName = lastNameRef.current.value
+			alert( firstName + ' ' + lastName );
+		}
+
+		return (
+			<div className="app-container">
+				<form onSubmit={handleSubmit}>
+					<div>
+					<label htmlFor="first-name">First Name :</label>
+					<br/>
+					<input ref={firstNameRef} id="first-name" />
+					<br/>
+					<label htmlFor="last-name">Last Name :</label>
+					<br/>
+					<input ref={lastNameRef} id="last-name" />
+					<br/>
+					</div>
+					<button typeof="submit">Submit</button>
+				</form>
+			< /div>
+		)
+	}
+
+	ReactDOM.render(<App />, document.getElementById('root'))
+</script>
+</body>

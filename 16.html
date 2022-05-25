@@ -1,0 +1,47 @@
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+<script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
+<script type="text/babel">
+
+	function useLocalStorageState (key, defaultVal = '') {
+		const [state, setState] = React.useState(
+			() => window.localStorage.getItem(key) || defaultVal
+		)
+
+		React.useEffect(() => {
+			window.localStorage.setItem(key, state)
+		}, [key, state])
+
+		return [state, setState]
+	}
+
+	const App = () => {
+		const [firstName, setFistName] = useLocalStorageState('firstName')
+		const [lastName, setLastNName] = useLocalStorageState('lastName')
+
+		const handleFirstNameChange = e => setFistName(e.target.value)
+		const handleLastNameChange = e => setLastNName(e.target.value)
+
+		return (
+			<div className="app-container">
+				<form>
+					<label htmlFor="first-name">First Name :</label>
+					<br/>
+					<input value={firstName} id="first-name" onChange={handleFirstNameChange}/>
+					<br/>
+					<label htmlFor="last-name">Last Name :</label>
+					<br/>
+					<input value={lastName} id="last-name" onChange={handleLastNameChange}/>
+					<br/>
+				</form>
+				{firstName || lastName ? <strong> Hello! {firstName} {lastName}</strong> : 'Please type your name'}
+			< /div>
+		)
+	}
+
+	ReactDOM.render(<App/>, document.getElementById('root'))
+</script>
+</body>

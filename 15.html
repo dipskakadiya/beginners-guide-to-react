@@ -6,15 +6,14 @@
 <script src="https://unpkg.com/prop-types@15.6.1/prop-types.js"></script>
 <script type="text/babel">
 
-
-	const App = () => {
-		const [ firstName, setFistName ] = React.useState(window.localStorage.getItem('firstName') || '');
-		const [ lastName, setLastNName ] = React.useState(window.localStorage.getItem('lastName') || '');
+	const UserName = () => {
+		const [firstName, setFistName] = React.useState(() => window.localStorage.getItem('firstName') || '')
+		const [lastName, setLastNName] = React.useState(() => window.localStorage.getItem('lastName') || '')
 
 		React.useEffect( () => {
 			window.localStorage.setItem( 'firstName', firstName )
 			window.localStorage.setItem( 'lastName', lastName )
-		} )
+		}, [ firstName,lastName ] )
 
 		const handleFirstNameChange = e => setFistName(e.target.value);
 		const handleLastNameChange = e => setLastNName(e.target.value);
@@ -34,6 +33,16 @@
 				{firstName || lastName? <strong> Hello! {firstName} {lastName}</strong> : 'Please type your name' }
 			< /div>
 		)
+	}
+
+	const App = () => {
+		const [count, setCount] = React.useState(0)
+		return (
+			<>
+				<button onClick={()=> setCount(c=>c+1)}>{count}</button>
+				<UserName />
+			</>
+		);
 	}
 
 	ReactDOM.render(<App />, document.getElementById('root'))
