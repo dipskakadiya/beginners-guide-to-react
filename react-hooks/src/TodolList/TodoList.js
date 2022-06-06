@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useReducer, useMemo} from "react";
+import React, {useEffect, useState, useRef, useReducer, useMemo, useCallback} from "react";
 import {useTitle as useDocumentTitle} from "react-use";
 
 import NewTodo from "./NewTodo";
@@ -109,14 +109,14 @@ export default function TodoList() {
         // updateTodos(prevTodos => [...prevTodos, {id: todoId.current, text: newTodo, completed: false}])
         updateNewTodo("")
     }
-    const handleDelete = (id, e) => {
+    const handleDelete = useCallback((id, e) => {
         dispatch({
             type: "DELETE_TODO",
             id: id
         })
         // updateTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
-    }
-    const handleCompletedToggle = (id, e) => {
+    }, []);
+    const handleCompletedToggle = useCallback( (id, e) => {
         dispatch({
             type: "DELETE_TODO",
             id: id
@@ -124,7 +124,7 @@ export default function TodoList() {
         // updateTodos(prevTodos => prevTodos.map(todo =>
         //     todo.id === id ? {...todo, completed: !todo.completed} : todo
         // ));
-    }
+    },[] );
     return (
         <Container todos={todos}>
             <NewTodo
